@@ -15,4 +15,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('sendtestemail', 'EmailApiController@sendTransactionalEmail');
+$router->post('sendtestemail',[
+    'as' => 'send.email', 'uses' => 'EmailApiController@sendTransactionalEmail@showProfile'
+]);

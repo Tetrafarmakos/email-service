@@ -13,6 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Interfaces\SendTransactionalEmailInterface', 'App\ApiClasses\TransactionalEmailViaMailjet');
+        $this->app->bind('App\Interfaces\EmailServiceInterface', 'App\ApiClasses\TransactionalEmailViaMailjet');
     }
 }

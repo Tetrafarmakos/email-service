@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\SendTransactionalEmailInterface;
+use App\Interfaces\EmailServiceInterface;
 
 class EmailApiController extends Controller
 {
@@ -13,7 +13,7 @@ class EmailApiController extends Controller
      */
     protected $emailer;
 
-    public function __construct(SendTransactionalEmailInterface $emailer)
+    public function __construct(EmailServiceInterface $emailer)
     {
         $this->emailer = $emailer;
     }

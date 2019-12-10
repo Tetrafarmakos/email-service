@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface SendTransactionalEmailInterface
+interface EmailServiceInterface
 {
     public function sendTransactionalEmail();
     //public function setApiKey($key);

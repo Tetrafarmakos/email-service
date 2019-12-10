@@ -2,9 +2,9 @@
 
 namespace App\ApiClasses;
 
-use App\Interfaces\SendTransactionalEmailInterface;
+use App\Interfaces\EmailServiceInterface;
 
-class TransactionalEmailViaMailjet implements SendTransactionalEmailInterface
+class TransactionalEmailViaMailjet implements EmailServiceInterface
 {
     public function sendTransactionalEmail() {
 
