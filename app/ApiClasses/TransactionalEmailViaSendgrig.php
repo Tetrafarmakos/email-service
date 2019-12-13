@@ -2,13 +2,19 @@
 
 namespace App\ApiClasses;
 
-use App\Interfaces\EmailServiceInterface;
+use App\AbstractClasses\EmailServiceChecker;
 
-class TransactionalEmailViaSendgrig implements EmailServiceInterface
+class TransactionalEmailViaSendgrig extends EmailServiceChecker
 {
     public function sendTransactionalEmail() {
 
-        return 'email send via send grid';
+        $email_send = 1;
+
+        if ($email_send) {
+          return 'email send via send grid';
+        }
+
+        return $this->next();
     }
 
 }

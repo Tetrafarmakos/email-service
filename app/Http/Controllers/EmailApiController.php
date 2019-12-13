@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\EmailServiceInterface;
+use App\ApiClasses\TransactionalEmailViaMailjet;
+use App\ApiClasses\TransactionalEmailViaSendgrig;
 
 class EmailApiController extends Controller
 {
@@ -11,15 +12,14 @@ class EmailApiController extends Controller
      *
      * @return void
      */
-    protected $emailer;
-
-    public function __construct(EmailServiceInterface $emailer)
-    {
-        $this->emailer = $emailer;
-    }
 
     public function sendTransactionalEmail()
     {
-        return $this->emailer->sendTransactionalEmail();
+        $mailjet = new TransactionalEmailViaMailjet;
+        $send_grid = new TransactionalEmailViaSendgrig;
+
+        $mailjet->succeedWith($send_grid);
+
+        return $mailjet->sendTransactionalEmail();
     }
 }

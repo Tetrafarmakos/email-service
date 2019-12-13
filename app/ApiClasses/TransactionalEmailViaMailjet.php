@@ -2,13 +2,19 @@
 
 namespace App\ApiClasses;
 
-use App\Interfaces\EmailServiceInterface;
+use App\AbstractClasses\EmailServiceChecker;
 
-class TransactionalEmailViaMailjet implements EmailServiceInterface
+class TransactionalEmailViaMailjet extends EmailServiceChecker
 {
     public function sendTransactionalEmail() {
 
-        return 'email send via mail jet';
+        $email_send = 1;
+
+        if ($email_send) {
+          return 'email send via mail jet';
+        }
+
+        return $this->next();
     }
 
 }
