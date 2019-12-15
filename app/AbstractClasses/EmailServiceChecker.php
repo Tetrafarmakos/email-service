@@ -19,6 +19,5 @@ abstract class EmailServiceChecker
         if ($this->successor) {
           return $this->successor->sendTransactionalEmail();
         }
-
     }
 }
