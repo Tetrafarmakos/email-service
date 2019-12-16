@@ -6,7 +6,7 @@ abstract class EmailServiceChecker
 {
     protected $successor;
 
-    public abstract function sendTransactionalEmail();
+    public abstract function sendTransactionalEmail($data);
     //public function setApiKey($key);
 
     public function succeedWith(EmailServiceChecker $successor)
@@ -14,10 +14,10 @@ abstract class EmailServiceChecker
         $this->successor = $successor;
     }
 
-    public function next()
+    public function next($data)
     {
         if ($this->successor) {
-          return $this->successor->sendTransactionalEmail();
+          return $this->successor->sendTransactionalEmail($data);
         }
     }
 }

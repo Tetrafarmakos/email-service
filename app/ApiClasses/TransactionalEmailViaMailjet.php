@@ -4,10 +4,11 @@ namespace App\ApiClasses;
 
 use App\AbstractClasses\EmailServiceChecker;
 use \Mailjet\Resources;
+use Illuminate\Http\Request;
 
 class TransactionalEmailViaMailjet extends EmailServiceChecker
 {
-    public function sendTransactionalEmail() {
+    public function sendTransactionalEmail($data) {
 
         $mj = new \Mailjet\Client(env('MJ_APIKEY_PUBLIC'),env('MJ_APIKEY_PRIVATE'),true,['version' => 'v3.1']);
         $body = [
@@ -19,13 +20,13 @@ class TransactionalEmailViaMailjet extends EmailServiceChecker
               ],
               'To' => [
                 [
-                  'Email' => "billgermanakis@gmail.com",
+                  'Email' => $data->address,
                   'Name' => "VASILEIOS"
                 ]
               ],
-              'Subject' => "Greetings from Mailjet.",
-              'TextPart' => "My first Mailjet email",
-              'HTMLPart' => "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+              'Subject' => $data->subject,
+              'TextPart' => $data->body,
+              //'HTMLPart' => "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
               'CustomID' => "AppGettingStartedTest"
             ]
           ]
@@ -37,7 +38,7 @@ class TransactionalEmailViaMailjet extends EmailServiceChecker
           return 'email send via mail jet';
         }
 
-        return $this->next();
+        return $this->next($data);
     }
 
 }

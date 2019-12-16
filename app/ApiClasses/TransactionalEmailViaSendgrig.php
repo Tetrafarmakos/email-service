@@ -6,16 +6,14 @@ use App\AbstractClasses\EmailServiceChecker;
 
 class TransactionalEmailViaSendgrig extends EmailServiceChecker
 {
-    public function sendTransactionalEmail() {
+    public function sendTransactionalEmail($data) {
 
         $email = new \SendGrid\Mail\Mail();
         $email->setFrom("test@example.com", "Example User");
-        $email->setSubject("Sending with SendGrid is Fun");
-        $email->addTo("billgermanakis@gmail.com", "Example User");
-        $email->addContent("text/plain", "and easy to do anywhere, even with PHP");
-        $email->addContent(
-          "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-        );
+        $email->setSubject($data->subject);
+        $email->addTo($data->address, "Example User");
+        $email->addContent("text/plain", $data->body);
+        // $email->addContent("text/html", "<strong>and easy to do anywhere, even with PHP</strong>");
         $sendgrid = new \SendGrid(env('SG_APIKEY'));
         try {
           $response = $sendgrid->send($email);
@@ -30,7 +28,7 @@ class TransactionalEmailViaSendgrig extends EmailServiceChecker
           return 'email send via send grid';
         }
 
-        return $this->next();
+        return $this->next($data);
     }
 
 }

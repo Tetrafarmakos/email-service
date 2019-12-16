@@ -39,17 +39,14 @@ class SendJsonForEmail extends Command
     {
       $client = new \GuzzleHttp\Client();
 
-      $info_for_email = '{
-
-          "subject": "x",
-
-          "body": "asdasdasd",
-
-          "address": "asdasd",
-      }';
+      $array_message =  array(
+      "subject" => "Transaction",
+      "body" => "Transaction information",
+      "address" => "billgermanakis@gmail.com"
+      );
 
       $result = $client->request('POST', url('http://takeaway.test/sendtestemail'), [
-          'body' => $info_for_email
+          'json' => $array_message
       ]);
 
       $this->info($result->getBody());
