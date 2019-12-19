@@ -6,8 +6,10 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "illuminate/redis": "^6.8",
         "laravel/lumen-framework": "^6.0",
         "mailjet/mailjet-apiv3-php": "^1.4",
+        "predis/predis": "~1.0",
         "sendgrid/sendgrid": "~7"
     },
     "require-dev": {
