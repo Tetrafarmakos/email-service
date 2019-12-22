@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Queue;
 
 abstract class Job implements ShouldQueue
 {
@@ -21,4 +22,21 @@ abstract class Job implements ShouldQueue
     */
 
     use InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $successor;
+
+    //public abstract function handle($data);
+    //public function setApiKey($key);
+
+    public function succeedWith(Job $successor)
+    {
+        $this->successor = $successor;
+    }
+
+    public function next($data)
+    {
+        if ($this->successor) {
+          return Queue::push($this->successor);
+        }
+    }
 }

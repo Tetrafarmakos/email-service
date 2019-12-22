@@ -41,7 +41,7 @@ class SendJsonForEmail extends Command
 
       $array_message =  array(
       "subject" => "Transaction",
-      "body" => "Transaction information",
+      "body" => "Transaction information bill",
       "address" => "billgermanakis@gmail.com"
       );
 

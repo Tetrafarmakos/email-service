@@ -10,16 +10,12 @@ class TransactionalEmailViaSendgrig extends EmailServiceChecker
 
         $email = new \SendGrid\Mail\Mail();
         $email->setFrom("test@example.com", "Example User");
-        $email->setSubject($data->subject);
-        $email->addTo($data->address, "Example User");
-        $email->addContent("text/plain", $data->body);
-        // $email->addContent("text/html", "<strong>and easy to do anywhere, even with PHP</strong>");
+        $email->setSubject($data['subject']);
+        $email->addTo($data['address'], "Example User");
+        $email->addContent("text/plain", $data['body']);
         $sendgrid = new \SendGrid(env('SG_APIKEY'));
         try {
           $response = $sendgrid->send($email);
-          // print $response->statusCode() . "\n";
-          // print_r($response->headers());
-          // print $response->body() . "\n";
         } catch (Exception $e) {
           echo 'Caught exception: '. $e->getMessage() ."\n";
         }

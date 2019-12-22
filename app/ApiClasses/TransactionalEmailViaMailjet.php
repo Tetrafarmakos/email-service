@@ -10,6 +10,7 @@ class TransactionalEmailViaMailjet extends EmailServiceChecker
 {
     public function sendTransactionalEmail($data) {
 
+        // Queue::push(new ExampleJob($data));
         $mj = new \Mailjet\Client(env('MJ_APIKEY_PUBLIC'),env('MJ_APIKEY_PRIVATE'),true,['version' => 'v3.1']);
         $body = [
           'Messages' => [
@@ -20,12 +21,12 @@ class TransactionalEmailViaMailjet extends EmailServiceChecker
               ],
               'To' => [
                 [
-                  'Email' => $data->address,
+                  'Email' => $data['address'],
                   'Name' => "VASILEIOS"
                 ]
               ],
-              'Subject' => $data->subject,
-              'TextPart' => $data->body,
+              'Subject' => $data['subject'],
+              'TextPart' => $data['body'],
               //'HTMLPart' => "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
               'CustomID' => "AppGettingStartedTest"
             ]
