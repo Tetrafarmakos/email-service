@@ -30,13 +30,13 @@ class SendEmailViaMailJetJob extends Job
           'Messages' => [
             [
               'From' => [
-                'Email' => "billgermanakis@hotmail.com",
-                'Name' => "VASILEIOS"
+                'Email' => env('EMAIL_FROM_ADDRESS'),
+                'Name' => env('EMAIL_FROM_NAME')
               ],
               'To' => [
                 [
                   'Email' => $this->data['address'],
-                  'Name' => "VASILEIOS"
+                  'Name' => $this->data['name']
                 ]
               ],
               'Subject' => $this->data['subject'],
@@ -52,7 +52,7 @@ class SendEmailViaMailJetJob extends Job
 
     public function failed()
     {
-        Log::info('*******************************************1');
+        Log::info('MailJet out of service.To:'.$this->data['address']);
         return $this->next($this->data);
     }
 }

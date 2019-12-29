@@ -25,9 +25,6 @@ abstract class Job implements ShouldQueue
 
     protected $successor;
 
-    //public abstract function handle($data);
-    //public function setApiKey($key);
-
     public function succeedWith(Job $successor)
     {
         $this->successor = $successor;

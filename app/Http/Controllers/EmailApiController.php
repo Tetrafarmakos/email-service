@@ -2,31 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\ApiClasses\TransactionalEmailViaMailjet;
-use App\ApiClasses\TransactionalEmailViaSendgrig;
+use App\ApiClasses\EmailSetupService;
 use Illuminate\Http\Request;
-use App\Jobs\SendEmailViaMailJetJob;
-use App\Jobs\SendEmailViaSendGridJob;
 
 class EmailApiController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    protected $emailer;
+
+    public function __construct(EmailSetupService $emailer)
+    {
+        $this->emailer = $emailer;
+    }
 
     public function sendTransactionalEmail(Request $request)
     {
-        $array_message =  array(
+        $data =  array(
         "subject" => $request->subject,
         "body" => $request->body,
-        "address" => $request->address
+        "address" => $request->address,
+        "name" => $request->name
         );
-        $mailjet = new SendEmailViaMailJetJob($array_message);
-        $send_grid = new SendEmailViaSendGridJob($array_message);
 
-        $mailjet->succeedWith($send_grid);
-        return $this->dispatch($mailjet);
+        $email_queue_code = $this->emailer->setupEmailServices($data);
+
+        return response()->json(['queue_number' => $email_queue_code,
+                                 'message' => 'email successfully in queue']);
     }
 }

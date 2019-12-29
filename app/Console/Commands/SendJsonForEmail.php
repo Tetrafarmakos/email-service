@@ -41,11 +41,12 @@ class SendJsonForEmail extends Command
 
       $array_message =  array(
       "subject" => "Transaction",
-      "body" => "Transaction information bill",
-      "address" => "billgermanakis@gmail.com"
+      "body" => "Transaction information",
+      "address" => "billgermanakis@gmail.com",
+      "name" => "Bill"
       );
 
-      $result = $client->request('POST', url('http://takeaway.test/sendtestemail'), [
+      $result = $client->request('POST', url('http://takeaway.test/sendtestemail'), [ //route('send.email') and url('sendtestemail') does not work properly localy,so i had to use full path
           'json' => $array_message
       ]);
 
