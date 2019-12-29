@@ -47,6 +47,9 @@ class SendEmailViaMailJetJob extends Job
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
         if(!$response->success()){abort(503, 'MailJet out of service.');}
+        \App\SendEmails::create(['email_service' => 'MailJet',      
+                                 'address' => $this->data['address'],
+                                 'subject' => $this->data['subject']]);
 
     }
 

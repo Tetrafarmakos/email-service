@@ -34,9 +34,11 @@ class SendEmailViaSendGridJob extends Job
         $response = $sendgrid->send($email);
 
         if ($response->statusCode() != '200' && $response->statusCode() != '202') {
-
           abort(503, 'SendGrid out of service.');
         }
+        \App\SendEmails::create(['email_service' => 'SendGrid',         
+                                 'address' => $this->data['address'],
+                                 'subject' => $this->data['subject']]);
     }
 
     public function failed()
