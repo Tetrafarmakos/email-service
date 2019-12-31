@@ -20,12 +20,12 @@ class ResponseOkTest extends TestCase
         "name" => "test name"
         );
 
-        $stub = $this->createMock(EmailSetupService::class);
+        $ess = $this->createMock(EmailSetupService::class);
 
-        $stub->method('setupEmailServices')
+        $ess->method('setupEmailServices')
              ->willReturn('123456789');
 
-        $this->app->instance(EmailSetupService::class, $stub);
+        $this->app->instance(EmailSetupService::class, $ess);
 
         $response = $this->call('POST', 'sendtestemail', $data);
 
