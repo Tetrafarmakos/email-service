@@ -46,7 +46,7 @@ class SendJsonForEmail extends Command
       "name" => "Bill"
       );
 
-      $result = $client->request('POST', url('http://takeaway.test/sendtestemail'), [ //route('send.email') and url('sendtestemail') does not work properly localy,so i had to use full path
+      $result = $client->request('POST', route('send.email'), [ 
           'json' => $array_message
       ]);
 
